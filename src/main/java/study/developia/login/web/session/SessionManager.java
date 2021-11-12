@@ -52,4 +52,15 @@ public class SessionManager {
                 .findAny()
                 .orElse(null);
     }
+
+    /**
+     * 세션 만료
+     */
+
+    public void expire(HttpServletRequest request) {
+        Cookie sessionCookie = findCookie(request, SESSION_COOKIE_NAME);
+        if (sessionCookie != null) {
+            sessionStore.remove(sessionCookie.getValue());
+        }
+    }
 }
